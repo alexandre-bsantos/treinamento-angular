@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+import { Relevancia } from 'src/app/relevancia';
+import { Responsavel } from 'src/app/responsavel';
+import { Solicitante } from 'src/app/solicitante';
+import { Urgencia } from 'src/app/urgencia';
 import { Lista } from '../../lista';
+import { SolicitacaoService } from 'src/app/solicitacao.service';
 
 @Component({
   selector: 'app-formulario-solicitacao-atividade',
@@ -10,12 +17,24 @@ import { Lista } from '../../lista';
 export class FormularioSolicitacaoAtividadeComponent implements OnInit {
 
   formulario: FormGroup;
-  lista: Lista[];
-  itemSelecionado: string;
+  lista: Lista;
+  lista1: Lista[];
+  lista2: Lista[];
+  lista3: Lista[];
+  lista4: Lista[];
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private location: Location,
+    private solicitacaoService: SolicitacaoService) { }
 
-  ngOnInit() {
+  ngOnInit(  ) { 
+
+    this.lista1 = Solicitante;
+    this.lista2 = Responsavel;
+    this.lista3 = Urgencia;
+    this.lista4 = Relevancia;
 
     this.formulario = this.formBuilder.group({
       atividade: [null, Validators.required, Validators.minLength[20], Validators.maxLength[256]],
@@ -24,10 +43,21 @@ export class FormularioSolicitacaoAtividadeComponent implements OnInit {
       responsavel: [null, Validators.required],
       urgencia: [null, Validators.required],
       relevancia: [null, Validators.required]
-    })
-
-    this.lista = [ {id:1, nome:'Alexandre'}, {id:2, nome:'Teste'}];
-    
+    });
+  }
+  
+  buscar(): void {
+    const id = +this.route.snapshot.paramMap.get('id')
+    this.solicitacaoService.buscarPorId(id)
+      .subscribe(lista =>  this.lista = lista);
   }
 
+  voltar(): void {
+    this.location.back();
+  }
+
+  salvar(): void {
+    this.solicitacaoService.alterar(this.lista)
+      .subscribe(() => this.voltar());
+  }
 }

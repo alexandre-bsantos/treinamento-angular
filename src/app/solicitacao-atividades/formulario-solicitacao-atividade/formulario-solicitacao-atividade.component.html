@@ -6,7 +6,18 @@
     <h5>Issue</h5>
     <input type="text" pInputText [(ngModel)]="issue">
 
-    <h5>Single</h5>
-    <p-dropdown [options]="lista" [(ngModel)]="itemSelecionado" optionLabel="nome"></p-dropdown>
+    <h5>Solicitante</h5>
+    <p-dropdown [options]="lista1" [(ngModel)]="itemSelecionado1" optionLabel="nome"></p-dropdown>
+
+    <h5>Responsavel</h5>
+    <p-dropdown [options]="lista2" [(ngModel)]="itemSelecionado2" optionLabel="nome"></p-dropdown>
+
+    <h5>Urgência</h5>
+    <p-dropdown [options]="lista3" [(ngModel)]="itemSelecionado3" optionLabel="nome"></p-dropdown>
+
+    <h5>Relevância</h5>
+    <p-dropdown [options]="lista4" [(ngModel)]="itemSelecionado4" optionLabel="nome"></p-dropdown>
+
+    <button (click)="salvar()"> Salvar </button>
   </div>
 </div>

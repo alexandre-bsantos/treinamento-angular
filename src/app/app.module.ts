@@ -7,19 +7,21 @@ import { AppComponent } from './app.component';
 import { SolicitacaoAtividadesComponent } from './solicitacao-atividades/solicitacao-atividades.component';
 import { FormularioSolicitacaoAtividadeComponent } from './solicitacao-atividades/formulario-solicitacao-atividade/formulario-solicitacao-atividade.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     SolicitacaoAtividadesComponent,
-    FormularioSolicitacaoAtividadeComponent
+    FormularioSolicitacaoAtividadeComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    DropdownModule
+    DropdownModule,
+    HttpClientModule 
   ],
   providers: [],
   bootstrap: [AppComponent]
